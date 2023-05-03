@@ -14,3 +14,16 @@ def get_health_value(account: str) -> str:
 
     else:
         print('Error:', response.status_code)
+        
+        
+def get_price(ticker: str):
+    url = 'https://api.binance.com/api/v3/ticker/price?symbol=' + ticker.upper()
+    response = requests.get(url)
+    
+    if response.ok:
+        dict = response.json()
+        return dict['price']
+    
+    else:
+        print('Error:', response.status_code)
+    

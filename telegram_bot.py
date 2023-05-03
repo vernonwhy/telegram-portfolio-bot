@@ -14,10 +14,16 @@ def start_bot(accountId):
     def send_hello(message):
         bot.send_message(message.chat.id, 'Starting bot!')  
     
-    @bot.message_handler(commands=['health'])
+    @bot.message_handler(commands=['h'])
     def send_health(message):
         health = request_service.get_health_value(account)
         bot.send_message(message.chat.id, 'Your health value: ' + str(health))
+        
+    @bot.message_handler(commands=['p'])
+    def send_price(message):
+        ticker = message.text.replace('/p ', '')
+        price = request_service.get_price(ticker)
+        bot.send_message(message.chat.id, 'Price for ' + ticker.upper() + ': ' + price)
   
     bot.polling()
     
